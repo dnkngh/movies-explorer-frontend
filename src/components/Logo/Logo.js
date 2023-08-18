@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import React from 'react';
 
-import headerLogo from '../../images/logo.svg';
+import headerLogo from '../../images/logo-movies.svg';
 
 function Logo() {
   return (
