@@ -1,27 +1,26 @@
 .header {
-  background-color: #dddee3;
   display: flex;
   align-items: center;
   justify-content: space-between;
   max-width: 100%;
   padding: 18px 70px;
   margin: 0;
+  background-color: #fafafa;
+  height: 44px;
 }
 
-@media screen and (max-width: 1200px) {
-  .header {
-    padding: 18px 60px;
-  }
+.header_type_main {
+  background-color: #dddee3;
 }
 
 @media screen and (max-width: 768px) {
   .header {
-    padding: 18px 30px;
+    padding: 15px 30px;
   }
 }
 
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 500px) {
   .header {
-    padding: 18px 14px;
+    padding: 15px 14px;
   }
 }

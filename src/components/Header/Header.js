@@ -1,6 +1,9 @@
+import {Route, Routes} from 'react-router-dom';
+
 import Logo from '../Logo/Logo';
-import {Route, Routes} from "react-router-dom";
-import GlobalNavigation from "../GlobalNavigation/GlobalNavigation";
+import GlobalNavigation from '../GlobalNavigation/GlobalNavigation';
+import Menu from '../Menu/Menu';
+
 
 function Header(props) {
   return (
@@ -16,6 +19,36 @@ function Header(props) {
           }
         >
         </Route>
+        <Route
+          exact
+          path='/movies'
+          element={
+            <header className='header'>
+              <Logo />
+              <Menu />
+            </header>
+          }
+        ></Route>
+        <Route
+          exact
+          path='/saved-movies'
+          element={
+            <header className='header'>
+              <Logo />
+              <Menu />
+            </header>
+          }
+        ></Route>
+        <Route
+          exact
+          path='/profile'
+          element={
+            <header className='header'>
+              <Logo />
+              <Menu />
+            </header>
+          }
+        ></Route>
       </Routes>
   )
 }

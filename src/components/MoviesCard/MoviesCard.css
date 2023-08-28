@@ -1,0 +1,89 @@
+.movie {
+  background: #fff;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 218px;
+  box-sizing: border-box;
+  box-shadow: 0 16px 24px 0 rgba(0, 0, 0, 0.05);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.movie__picture {
+  display: block;
+  object-fit: cover;
+  width: 100%;
+  height: 151px;
+  object-position: center;
+}
+
+.movie__info {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 14px 12px 0 12px;
+
+}
+
+.movie__header {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin: 0;
+  padding: 0;
+}
+
+.movie__title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 13px;
+  font-weight: 500;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 0;
+  margin: 0;
+}
+
+.movie__duration {
+  font-size: 11px;
+  font-weight: 400;
+  color: #a0a0a0;
+  padding: 0;
+  margin: 10px 0 0 0;
+}
+
+.movie__liked {
+  border: none;
+  background-image: url(../../images/like-button-disabled.svg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: transparent;
+  box-sizing: border-box;
+  height: 26px;
+  width: 26px;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+}
+
+.movie__liked-active {
+  background-image: url(../../images/like-button-enabled.svg);
+}
+
+.movie__like-delete {
+  border: none;
+  background-image: url(../../images/delete-button.svg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: transparent;
+  box-sizing: border-box;
+  height: 8px;
+  width: 8px;
+  padding: 0;
+  margin: 3px 0 0 0;
+  cursor: pointer;
+}
