@@ -39,13 +39,13 @@ function Auth({ title, link, linkText, subtitle, subLink, subLinkName, ...props}
         </label>
       </form>
 
-      <button className='auth__button-submit' type='submit'>
-        <Link className='auth__button-link' to={link}>{linkText}</Link>
+      <button className='auth__button_type_submit button_opacity_eighty' type='submit'>
+        <Link className='auth__button_type_link' to={link}>{linkText}</Link>
       </button>
 
       <p className='auth__text'>
         {subtitle}
-        <Link className='auth__link' to={subLink}>{subLinkName}</Link>
+        <Link className='auth__link button_opacity_seventy' to={subLink}>{subLinkName}</Link>
       </p>
     </main>
   );

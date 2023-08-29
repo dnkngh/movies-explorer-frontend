@@ -9,7 +9,7 @@ function MoviesCard(props) {
     setLiked(!isLiked);
   }
 
-  const cardLikeButtonClassName = `movie__liked ${isLiked ? 'movie__liked_active' : ''}`;
+  const cardLikeButtonClassName = `movie__liked button_opacity_seventy ${isLiked ? 'movie__liked_active' : ''}`;
 
   function formatTime(timeInput) {
     let hours = Math.trunc(timeInput / 60);

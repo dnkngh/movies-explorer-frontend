@@ -1,0 +1,27 @@
+@keyframes button_opacity_eighty {
+  from {
+    opacity: 100%;
+  }
+  to {
+    opacity: 80%;
+  }
+}
+
+.button_opacity_eighty:hover {
+  animation: button_opacity_eighty .5s forwards;
+}
+
+
+@keyframes button_opacity_seventy {
+  from {
+    opacity: 100%;
+  }
+  to {
+    opacity: 70%;
+  }
+}
+
+.button_opacity_seventy:hover {
+  animation: button_opacity_seventy .5s forwards;
+}
+

@@ -10,13 +10,13 @@ function GlobalNavigation() {
           element={
             <div className='global-navigation__link'>
               <NavLink
-                className='global-navigation__button'
+                className='global-navigation__button button_opacity_eighty'
                 to='/signup'
               >
                 Регистрация
               </NavLink>
               <NavLink
-                className='global-navigation__button global-navigation__button_signin'
+                className='global-navigation__button global-navigation__button_signin button_opacity_seventy'
                 to='/signin'
               >
                 Войти

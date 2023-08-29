@@ -53,7 +53,7 @@
   font-weight: 400;
 }
 
-.auth__button-submit {
+.auth__button_type_submit {
   background: #3456F3;
   height: 45px;
   width: 100%;
@@ -67,7 +67,7 @@
 }
 
 
-.auth__button-link {
+.auth__button_type_link {
   color: #fff;
   text-decoration: none;
 }
@@ -106,7 +106,7 @@
     width: 260px;
   }
 
-  .auth__button-submit {
+  .auth__button_type_submit {
     margin-top: 309px;
   }
 

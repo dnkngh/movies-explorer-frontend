@@ -52,11 +52,11 @@ function Profile() {
         </label>
       </form>
       <button
-        className='profile__button profile__button_type_submit'
+        className='profile__button profile__button_type_submit button_opacity_seventy'
         type='submit'
       >Редактировать</button>
       <button
-        className='profile__button profile__button_type_logout'
+        className='profile__button profile__button_type_logout button_opacity_seventy'
       >
         <Link
           className='profile__button-link'

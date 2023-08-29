@@ -28,7 +28,7 @@
   font-size: 11px;
   font-weight: 500;
   position: relative;
-  overflow: hidden;
+  : hidden;
 }
 
 .profile__label:last-of-type {
@@ -65,6 +65,7 @@
   font-weight: 400;
   width: 410px;
   align-self: center;
+  cursor: pointer;
 }
 
 .profile__button_type_submit {

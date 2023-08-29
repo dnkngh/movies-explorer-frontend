@@ -17,7 +17,7 @@ function SearchForm() {
           placeholder='Фильм'
           required
         />
-        <button className='search-form__button'></button>
+        <button className='search-form__button button_opacity_eighty'></button>
 
         <span className='search-form__separator'></span>
 

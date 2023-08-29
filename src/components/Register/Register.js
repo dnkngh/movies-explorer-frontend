@@ -22,7 +22,7 @@ function Register() {
           required
           placeholder='Имя'
         />
-        <span className='auth__input-error auth__registation'>asdf</span>
+        <span className='auth__input-error'>asdf</span>
       </label>
     </Auth>
   );
