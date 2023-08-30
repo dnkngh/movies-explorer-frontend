@@ -20,9 +20,9 @@ function Register() {
           minLength='2'
           maxLength='30'
           required
-          placeholder='Имя'
+          placeholder='Виталий'
         />
-        <span className='auth__input-error'>asdf</span>
+        {/*<span className='auth__input-error'>asdf</span>*/}
       </label>
     </Auth>
   );

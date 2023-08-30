@@ -4,10 +4,11 @@
 @import url('components/PageNotFound/PageNotFound.css');
 @import url('./components/AboutMe/AboutMe.css');
 @import url('./components/Auth/Auth.css');
-@import url('./components/ButtonHover/ButtonHover.css');
 @import url('./components/AboutProject/AboutProject.css');
 @import url('./components/App/App.css');
 @import url('./components/Header/Header.css');
+@import url('./components/HoverButton/HoverButton.css');
+@import url('./components/HoverLink/HoverLink.css');
 @import url('./components/Footer/Footer.css');
 @import url('./components/FooterContent/FooterContent.css');
 @import url('./components/Logo/Logo.css');

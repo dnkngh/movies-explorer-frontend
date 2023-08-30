@@ -9,7 +9,7 @@ function Portfolio() {
       <ul className='portfolio__project-list'>
         <li className='portfolio__project'>
           <NavLink
-            className='portfolio__link'
+            className='portfolio__link hover-link'
             to='https://github.com/dnkngh/how-to-learn'
             target='_blank'
           >
@@ -23,7 +23,7 @@ function Portfolio() {
         </li>
         <li className='portfolio__project'>
           <NavLink
-            className='portfolio__link'
+            className='portfolio__link hover-link'
             to='https://github.com/dnkngh/russian-travel'
             target='_blank'
           >
@@ -37,7 +37,7 @@ function Portfolio() {
         </li>
         <li className='portfolio__project'>
           <NavLink
-            className='portfolio__link'
+            className='portfolio__link hover-link'
             to='https://github.com/dnkngh/react-mesto-api-full-gha'
             target='_blank'
           >

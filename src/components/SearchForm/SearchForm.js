@@ -17,7 +17,7 @@ function SearchForm() {
           placeholder='Фильм'
           required
         />
-        <button className='search-form__button button_opacity_eighty'></button>
+        <button className='search-form__button hover-button'></button>
 
         <span className='search-form__separator'></span>
 
@@ -32,9 +32,9 @@ function SearchForm() {
             className='search-form__checkbox-visible'
             hidden
           ></span>
-          <p className='search-form__filter-name'>
+          <span className='search-form__filter-name'>
             Короткометражки
-          </p>
+          </span>
         </label>
       </form>
     </section>

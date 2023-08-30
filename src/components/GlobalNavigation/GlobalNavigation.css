@@ -35,3 +35,15 @@
   border-radius: 3px;
   color: #fff;
 }
+
+@media screen and (max-width: 600px) {
+  .global-navigation__button {
+    font-size: 10px;
+    margin-right: 14px;
+  }
+
+  .global-navigation__button_signin {
+    padding: 5px 12px;
+  }
+
+}

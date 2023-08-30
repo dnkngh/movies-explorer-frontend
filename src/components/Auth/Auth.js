@@ -11,7 +11,7 @@ function Auth({ title, link, linkText, subtitle, subLink, subLinkName, ...props}
       <form className='auth__form'>
         <>{props.children}</>
         <label className='auth__label'>
-          Email
+          E-mail
           <input
             className='auth__input'
             id='email'
@@ -20,9 +20,8 @@ function Auth({ title, link, linkText, subtitle, subLink, subLinkName, ...props}
             minLength='5'
             maxLength='30'
             required
-            placeholder='Адрес электронной почты'
+            placeholder='pochta@yandex.ru|'
           />
-          <span className='auth__input-error'>asdf</span>
         </label>
         <label className='auth__label'>
           Пароль
@@ -35,17 +34,17 @@ function Auth({ title, link, linkText, subtitle, subLink, subLinkName, ...props}
             required
             placeholder='Пароль'
           />
-          <span className='auth__input-error'>asdf</span>
+          <span className='auth__input-error'>Что-то пошло не так...</span>
         </label>
       </form>
 
-      <button className='auth__button_type_submit button_opacity_eighty' type='submit'>
-        <Link className='auth__button_type_link' to={link}>{linkText}</Link>
+      <button className='auth_button auth__button_type_submit hover-button' type='submit'>
+        <Link className='auth_button auth__button_type_link' to={link}>{linkText}</Link>
       </button>
 
       <p className='auth__text'>
         {subtitle}
-        <Link className='auth__link button_opacity_seventy' to={subLink}>{subLinkName}</Link>
+        <Link className='auth__link hover-link' to={subLink}>{subLinkName}</Link>
       </p>
     </main>
   );

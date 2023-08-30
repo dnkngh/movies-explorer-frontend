@@ -122,6 +122,7 @@
 
   .menu__close-button {
     display: flex;
+    position: fixed;
   }
 
   .menu__homepage {
@@ -192,5 +193,16 @@
 
   .menu__saved-movies.active {
     border-bottom: 2px solid #000;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .menu {
+    margin-right: 8px;
+  }
+
+  .menu__open-button {
+    height: 23px;
+    width: 23px;
   }
 }

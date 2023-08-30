@@ -9,7 +9,7 @@ function MoviesCard(props) {
     setLiked(!isLiked);
   }
 
-  const cardLikeButtonClassName = `movie__liked button_opacity_seventy ${isLiked ? 'movie__liked_active' : ''}`;
+  const cardLikeButtonClassName = `movie__liked hover ${isLiked ? 'movie__liked_active' : ''}`;
 
   function formatTime(timeInput) {
     let hours = Math.trunc(timeInput / 60);
@@ -18,12 +18,16 @@ function MoviesCard(props) {
     return `${hours}ч${minutes}м`;
   }
 
+  function createMovieSrcValue(movieTitle) {
+    return `Постер фильма "${movieTitle}"`;
+  }
+
   return (
     <li className='movie'>
       <img
         className='movie__picture'
         src={props.card.image}
-        alt={props.card.nameRU}
+        alt={createMovieSrcValue(props.card.nameRU)}
       />
       <div className='movie__info'>
         <div className='movie__header'>

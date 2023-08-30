@@ -1,6 +1,6 @@
-import movie1 from '../images/movies/movie1.jpg';
+import movie1 from '../images/movies/movie1.png';
 import movie2 from '../images/movies/movie2.jpg';
-import movie3 from '../images/movies/movie3.jpg';
+import movie3 from '../images/movies/movie3.png';
 import movie4 from '../images/movies/movie4.jpg';
 import movie5 from '../images/movies/movie5.jpg';
 import movie6 from '../images/movies/movie6.jpg';
@@ -16,7 +16,9 @@ import movie15 from '../images/movies/movie15.jpg';
 import movie16 from '../images/movies/movie16.jpg';
 import movie17 from '../images/movies/movie17.jpg';
 
-export const moviesList = [
+const exportAmount = 6;
+
+const movies = [
   {
     duration: 102,
     image: movie1,
@@ -137,3 +139,7 @@ export const moviesList = [
     id: 17,
   },
 ];
+
+const moviesList = movies.slice(0, exportAmount);
+
+export { moviesList };

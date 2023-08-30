@@ -12,7 +12,7 @@ function PageNotFound() {
         Страница не найдена
       </p>
       <button
-       className='page-not-found__button'
+       className='page-not-found__button hover-link'
        type='button'
        onClick={() => navigate(-1)}
       >

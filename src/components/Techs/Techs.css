@@ -62,23 +62,27 @@
 }
 
 @media screen and (max-width: 768px) {
+  .techs {
+    min-height: 576px;
+  }
+
   .techs__title {
     padding-top: 90px;
     margin: 0 50px;
   }
 
   .techs__subtitle {
-    padding: 80px 0 0 0;
+    padding: 82px 0 0 0;
   }
 
   .techs__text {
     font-size: 12px;
     line-height: 18px;
-    padding-top: 22px;
+    padding-top: 21px;
   }
 
   .techs__list {
-    padding: 53px 0;
+    padding: 83px 0;
   }
 
   .techs__item {
@@ -104,20 +108,20 @@
   }
   .techs__title {
     font-size: 18px;
-    padding-top: 70px;
+    padding-top: 61px;
     padding-bottom: 28px;
     margin: 0 18px;
   }
 
   .techs__subtitle {
-    padding: 60px 0 0 0;
+    padding: 49px 0 0 0;
     font-size: 30px;
   }
 
   .techs__text {
     font-size: 11px;
     line-height: 16px;
-    padding-top: 24px;
+    padding-top: 13px;
     max-width: 292px;
   }
 
