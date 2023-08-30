@@ -5,8 +5,8 @@ import headerLogo from '../../images/logo-movies.svg';
 
 function Logo() {
   return (
-    <Link to='/' className='logo button_opacity_seventy'>
-      <img src={headerLogo} alt='Лого' className='logo__img hover-button'></img>
+    <Link to='/' className='logo hover-link'>
+      <img src={headerLogo} alt='Логотип проекта' className='logo__img hover-button'></img>
     </Link>
   );
 }

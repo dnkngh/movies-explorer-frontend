@@ -2,7 +2,7 @@ import { NavLink, Route, Routes } from 'react-router-dom';
 
 function GlobalNavigation() {
   return (
-    <section className='global-navigation'>
+    <div className='global-navigation'>
       <Routes>
         <Route
           exact
@@ -10,13 +10,13 @@ function GlobalNavigation() {
           element={
             <div className='global-navigation__link'>
               <NavLink
-                className='global-navigation__button button_opacity_eighty'
+                className='global-navigation__button hover-button'
                 to='/signup'
               >
                 Регистрация
               </NavLink>
               <NavLink
-                className='global-navigation__button global-navigation__button_signin button_opacity_seventy'
+                className='global-navigation__button global-navigation__button_signin hover-link'
                 to='/signin'
               >
                 Войти
@@ -26,7 +26,7 @@ function GlobalNavigation() {
         >
         </Route>
       </Routes>
-    </section>
+    </div>
   );
 }
 

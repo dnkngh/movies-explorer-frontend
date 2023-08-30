@@ -6,7 +6,7 @@ function Movies({ list }) {
   return (
     <main className='movies'>
       <SearchForm />
-      <MoviesCardList list={list} />
+      <MoviesCardList list={list} savedMovies='123' />
     </main>
   );
 }

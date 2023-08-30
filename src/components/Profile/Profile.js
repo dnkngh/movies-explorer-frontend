@@ -2,8 +2,8 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 function Profile() {
-  const namePlaceholder = 'Жак-Ив';
-  const emailPlaceholder = 'asdf@asdf.com'
+  const namePlaceholder = 'Виталий';
+  const emailPlaceholder = 'pochta@yandex.ru'
 
   const [userName, setUserName] = useState(namePlaceholder);
   const [email, setEmail] = useState(emailPlaceholder);
@@ -25,8 +25,8 @@ function Profile() {
           Имя
           <input
             className='profile__input'
-            id='name'
-            type='name'
+            id='username'
+            type='text'
             name='name'
             minLength='2'
             maxLength='30'
@@ -44,7 +44,8 @@ function Profile() {
             type='email'
             name='email'
             minLength='5'
-            required='30'
+            maxLength='30'
+            required
             placeholder=''
             value={email || ''}
             onChange={handleChangeEmail}
@@ -52,11 +53,11 @@ function Profile() {
         </label>
       </form>
       <button
-        className='profile__button profile__button_type_submit button_opacity_seventy'
+        className='profile__button profile__button_type_submit hover-link'
         type='submit'
       >Редактировать</button>
       <button
-        className='profile__button profile__button_type_logout button_opacity_seventy'
+        className='profile__button profile__button_type_logout hover-link'
       >
         <Link
           className='profile__button-link'
