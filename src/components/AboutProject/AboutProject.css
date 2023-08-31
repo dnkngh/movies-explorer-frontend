@@ -1,0 +1,170 @@
+.about {
+  min-height: 608px;
+  margin: 0 70px;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.about__header {
+  font-weight: 400;
+  font-size: 22px;
+  padding: 110px 0 23px 0;
+  border-bottom: solid 1px #000;
+  margin: 0;
+  letter-spacing: -0.04em;
+}
+
+.about__info {
+  display: flex;
+  justify-content: space-between;
+  margin: 70px 0 110px 0;
+}
+
+.about__container {
+  margin: 0 53px 0 0;
+}
+
+.about__container:last-of-type {
+  margin-right: 0;
+}
+
+.about__title {
+  font-size: 20px;
+  font-weight: 400;
+  margin: 0 0 26px 0;
+  letter-spacing: -0.04em;
+}
+
+.about__text {
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 400;
+  margin: 0;
+}
+
+.about__timeline {
+  display: grid;
+  margin: 0;
+  padding: 0;
+  grid-template-columns: minmax(228px, 1fr) 4fr;
+  grid-template-rows: 36px 31px;
+}
+
+.about__stage-duration {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 400;
+  height: 36px;
+}
+
+.about__stage-duration_type_one-week {
+  background-color: #3456F3;
+  color: #fff;
+}
+
+.about__stage-duration_type_four-week {
+  background-color: #f2f2f2;
+  color: #000;
+}
+
+.about__stage-name {
+  color: #A0A0A0;
+  text-align: center;
+  line-height: 17px;
+  font-size: 14px;
+  font-weight: 500;
+  margin: 14px 0 0 0;
+}
+
+@media screen and (max-width: 768px) {
+  .about {
+    min-height: 585px;
+  }
+
+  .about__text {
+    font-size: 12px;
+    line-height: 18px;
+  }
+
+  .about__timeline {
+    grid-template-columns: minmax(140px, 1fr) 4fr;
+  }
+
+  .about__header {
+    padding: 93px 0 23px 0;
+  }
+
+  .about {
+    margin: 0 50px;
+  }
+
+  .about__info {
+    margin-bottom: 93px;
+  }
+
+  .about__container {
+    margin: 0 36px 0 0;
+  }
+
+  .about__title {
+    margin: 0 0 24px 0;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .about {
+    min-height: 651px;
+  }
+
+  .about__info {
+    flex-direction: column;
+    margin-bottom: 60px;
+    margin-top: 62px;
+  }
+
+  .about__header {
+    padding: 71px 0 28px 0;
+    font-size: 18px;
+  }
+
+  .about {
+    margin: 0 18px;
+  }
+
+  .about__title {
+    font-size: 18px;
+    margin: 0 0 17px 0;
+  }
+
+  .about__text {
+    font-size: 11px;
+    line-height: 16px;
+  }
+
+  .about__container {
+    margin-bottom: 59px;
+    margin-right: 0;
+  }
+
+  .about__container:last-of-type {
+    margin-bottom: 0;
+  }
+
+  .about__stage-duration {
+    font-size: 11px;
+  }
+
+  .about__stage-name {
+    font-size: 11px;
+    margin-top: 10px;
+    line-height: normal;
+  }
+
+  .about__timeline {
+    grid-template-columns: minmax(100px, 1fr) 4fr;
+  }
+}
