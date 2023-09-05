@@ -1,34 +1,47 @@
-import { useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import {Link, useLocation} from 'react-router-dom';
 
 function MoviesCard(props) {
-  const [isLiked, setLiked] = useState(false);
   const location = useLocation();
 
-  function handleCardLike() {
-    setLiked(!isLiked);
-  }
+  const isLiked = props.checkIsLiked ? props.checkIsLiked(props.card) : true;
 
-  const cardLikeButtonClassName = `movie__liked hover ${isLiked ? 'movie__liked_active' : ''}`;
+  const cardLikeButtonClassName = location.pathname === '/saved-movies'
+      ? 'movie__like-delete hover-button'
+      : `movie__liked hover-button ${isLiked ? 'movie__liked-active' : ''}`
 
-  function formatTime(timeInput) {
+  const formatTime = (timeInput) => {
     let hours = Math.trunc(timeInput / 60);
     let minutes = timeInput % 60;
 
     return `${hours}ч${minutes}м`;
-  }
+  };
 
-  function createMovieSrcValue(movieTitle) {
+  const createMovieSrcValue = (movieTitle) => {
     return `Постер фильма "${movieTitle}"`;
-  }
+  };
+
+  const handleCardLike = () => {
+    if (isLiked) {
+      props.onDelete(props.card);
+    } else {
+      props.onSave(props.card);
+    }
+  };
 
   return (
     <li className='movie'>
-      <img
-        className='movie__picture'
-        src={props.card.image}
-        alt={createMovieSrcValue(props.card.nameRU)}
-      />
+      <Link
+        className='hover-button'
+        to={props.card.trailerLink}
+        target='_blank'
+      >
+        <img
+          className='movie__picture'
+          src={props.card.image}
+          alt={createMovieSrcValue(props.card.nameRU)}
+        />
+      </Link>
+
       <div className='movie__info'>
         <div className='movie__header'>
           <h2 className='movie__title'>{props.card.nameRU}</h2>

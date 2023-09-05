@@ -1,41 +1,86 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useContext, useEffect, useState } from 'react';
 
-function Profile() {
-  const namePlaceholder = 'Виталий';
-  const emailPlaceholder = 'pochta@yandex.ru'
+import initValidState from '../../utils/initValidState';
+import useValidation from '../../utils/useValidation';
+import { CurrentUserContext } from '../../contexts/CurrentUserContext';
+import { ERROR_MESSAGES } from '../../utils/constants';
 
-  const [userName, setUserName] = useState(namePlaceholder);
-  const [email, setEmail] = useState(emailPlaceholder);
 
-  function handleChangeUserName(evt) {
-    setUserName(evt.target.value);
+function Profile({ onSubmit, onLogout }) {
+  const currentUser = useContext(CurrentUserContext);
+
+  const { formValues, handleChange, resetForm } = useValidation({
+    name: { ...initValidState, value: currentUser.name },
+    email: { ...initValidState, value: currentUser.email },
+  });
+
+  const isValidInput = formValues.name.isValid() && formValues.email.isValid();
+
+  const [ serverErrorMessage, setServerErrorMessage ] = useState('');
+  const [isInEditMode, setIsInEditMode] = useState(false);
+  const isNotEdited = formValues.name.value === currentUser.name && formValues.email.value === currentUser.email;
+  const toggleSubmitButton = isNotEdited || !isValidInput;
+
+
+  const handleSubmit = (evt) => {
+    setServerErrorMessage('');
+    evt.preventDefault();
+
+    onSubmit({
+      name: formValues.name.value,
+      email: formValues.email.value,
+    })
+      .then(() => {
+        setServerErrorMessage(ERROR_MESSAGES.profileUpdated);
+      })
+      .catch((error) => {
+        if (error === 400) {
+          return setServerErrorMessage(ERROR_MESSAGES.incorrectData);
+        }
+        if (error === 409) {
+          return setServerErrorMessage(ERROR_MESSAGES.duplicate);
+        }
+        if (error === 500) {
+          return setServerErrorMessage(ERROR_MESSAGES.internalError);
+        }
+      })
+      .finally(
+        setIsInEditMode(false)
+      )
+  };
+
+  const handleEdit = () => {
+    setIsInEditMode(true);
+    setServerErrorMessage('');
   }
 
-  function handleChangeEmail(evt) {
-    setEmail(evt.target.value);
-  }
+  useEffect(() => resetForm({
+    name: { ...initValidState, value: currentUser.name, isDirty: true, isValid: () => true },
+    email: { ...initValidState, value: currentUser.email, isDirty: true, isValid: () => true },
+  }), [currentUser]);
+
 
   return (
     <main className='profile'>
-      <h2 className='profile__header'>{`Привет, ${namePlaceholder}!`}</h2>
+      <h2 className='profile__header'>{`Привет, ${currentUser.name}!`}</h2>
 
-      <form className='profile__form'>
+      <form className='profile__form' onSubmit={handleSubmit} noValidate>
         <label className='profile__label'>
           Имя
           <input
             className='profile__input'
-            id='username'
+            id='name'
             type='text'
             name='name'
             minLength='2'
             maxLength='30'
             required
-            placeholder=''
-            value={userName || ''}
-            onChange={handleChangeUserName}
+            value={formValues.name.value || ''}
+            onChange={handleChange}
+            disabled={!isInEditMode}
           />
         </label>
+        <span className='profile__input-error'>{formValues.name.validationMessage}</span>
         <label className='profile__label'>
           Email
           <input
@@ -46,24 +91,42 @@ function Profile() {
             minLength='5'
             maxLength='30'
             required
-            placeholder=''
-            value={email || ''}
-            onChange={handleChangeEmail}
+            value={formValues.email.value || ''}
+            onChange={handleChange}
+            disabled={!isInEditMode}
           />
         </label>
+        <span className='profile__input-error'>{formValues.email.validationMessage}</span>
+
+        {isInEditMode &&
+          <>
+            <button
+              className='profile__button hover-button profile__button_type_submit'
+              type='submit'
+              disabled={toggleSubmitButton}
+            >
+              Сохранить
+            </button>
+          </>
+        }
       </form>
-      <button
-        className='profile__button profile__button_type_submit hover-link'
-        type='submit'
-      >Редактировать</button>
-      <button
-        className='profile__button profile__button_type_logout hover-link'
-      >
-        <Link
-          className='profile__button-link'
-          to='/'
-        >Выйти из аккаунта</Link>
-      </button>
+
+      {!isInEditMode &&
+        <>
+          <button
+            className='profile__button profile__button_type_edit hover-link'
+            type='submit'
+            onClick={handleEdit}
+          >Редактировать</button>
+          <button
+            className='profile__button profile__button-link profile__button_type_logout hover-link'
+            type='submit'
+            onClick={onLogout}
+          >
+            Выйти из аккаунта
+          </button>
+        </>
+      }
     </main>
   );
 }

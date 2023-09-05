@@ -2,15 +2,16 @@ import React from 'react';
 import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 
-function SavedMovies({ list }) {
-  const myMovies = list.filter((item) => !item.owner);
+function SavedMovies({ movies, foundMovies, onDelete, searchMessage, ...props }) {
 
   return (
     <main className='saved-movies'>
-      <SearchForm />
+      <SearchForm { ...props} />
       <MoviesCardList
-        list={myMovies}
-        savedMovies={false}
+        foundMovies={foundMovies}
+        savedMovies={true}
+        onDelete={onDelete}
+        searchMessage={searchMessage}
       />
     </main>
   );

@@ -1,4 +1,4 @@
-import { NavLink, Routes, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 
 import FooterContent from '../FooterContent/FooterContent';
 
@@ -13,12 +13,12 @@ function Footer() {
       ></Route>
 
       <Route
-        path='/movies/*'
+        path='/movies/'
         element={<FooterContent/>}
       ></Route>
 
       <Route
-        path='/saved-movies/*'
+        path='/saved-movies'
         element={<FooterContent/>}
       ></Route>
     </Routes>

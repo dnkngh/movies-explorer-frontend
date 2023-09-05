@@ -32,6 +32,9 @@
   justify-content: space-between;
   margin: 0;
   padding: 0;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 .movie__title {
