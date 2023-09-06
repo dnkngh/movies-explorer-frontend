@@ -1,17 +1,16 @@
 import { useContext, useEffect, useState } from 'react';
 
-import initValidState from '../../utils/initValidState';
 import useValidation from '../../utils/useValidation';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
-import { ERROR_MESSAGES } from '../../utils/constants';
+import { ERROR_MESSAGES, INITIAL_STATE } from '../../utils/constants';
 
 
 function Profile({ onSubmit, onLogout }) {
   const currentUser = useContext(CurrentUserContext);
 
   const { formValues, handleChange, resetForm } = useValidation({
-    name: { ...initValidState, value: currentUser.name },
-    email: { ...initValidState, value: currentUser.email },
+    name: { ...INITIAL_STATE, value: currentUser.name },
+    email: { ...INITIAL_STATE, value: currentUser.email },
   });
 
   const isValidInput = formValues.name.isValid() && formValues.email.isValid();
@@ -55,8 +54,8 @@ function Profile({ onSubmit, onLogout }) {
   }
 
   useEffect(() => resetForm({
-    name: { ...initValidState, value: currentUser.name, isDirty: true, isValid: () => true },
-    email: { ...initValidState, value: currentUser.email, isDirty: true, isValid: () => true },
+    name: { ...INITIAL_STATE, value: currentUser.name, isDirty: true, isValid: () => true },
+    email: { ...INITIAL_STATE, value: currentUser.email, isDirty: true, isValid: () => true },
   }), [currentUser]);
 
 
@@ -115,12 +114,12 @@ function Profile({ onSubmit, onLogout }) {
         <>
           <button
             className='profile__button profile__button_type_edit hover-link'
-            type='submit'
+            type='button'
             onClick={handleEdit}
           >Редактировать</button>
           <button
             className='profile__button profile__button-link profile__button_type_logout hover-link'
-            type='submit'
+            type='button'
             onClick={onLogout}
           >
             Выйти из аккаунта

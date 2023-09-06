@@ -5,7 +5,7 @@ import MoviesCard from '../MoviesCard/MoviesCard';
 import Preloader from '../Preloader/Preloader';
 
 
-function MoviesCardList({ foundMovies, savedMovies, checkIsLiked, onSave, onDelete, isLoading, ...props }) {
+function MoviesCardList({ foundMovies, savedMovies, checkIsLiked, onSave, onDelete, isLoading, searchMessage, ...props }) {
   const { pathname } = useLocation();
 
 
@@ -31,7 +31,7 @@ function MoviesCardList({ foundMovies, savedMovies, checkIsLiked, onSave, onDele
           {
             (pathname === '/movies' && !props.isSliced && !isLoading) || (props.isSliced && foundMovies.length === 0)
               ? ((foundMovies.length === 0)
-                ? <p>{props.searchMessage}</p>
+                ? <p>{searchMessage}</p>
                 : <button
                   className='movies-list__expand'
                   type='button'

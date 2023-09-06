@@ -11,14 +11,14 @@ import Register from '../Register/Register';
 import NotFound from '../PageNotFound/PageNotFound';
 import SavedMovies from '../SavedMovies/SavedMovies';
 
-import mainApi from '../../utils/MainApi';
-import moviesApi from '../../utils/MoviesApi';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 
-import { MOVIES_API_BASE_URL, SHORT_MOVIE_LENGTH } from '../../utils/constants';
-import initValidState from '../../utils/initValidState';
+import mainApi from '../../utils/MainApi';
+import moviesApi from '../../utils/MoviesApi';
+
+import { MOVIES_API_BASE_URL, SHORT_MOVIE_LENGTH, INITIAL_STATE } from '../../utils/constants';
 import useValidation from '../../utils/useValidation';
-import ProtectedRoute from "../../utils/ProtectedRoute";
+import ProtectedRoute from '../../utils/ProtectedRoute';
 
 
 function App() {
@@ -26,20 +26,32 @@ function App() {
 
   const [ currentUser, setCurrentUser ] = useState({ email: '', name: '' });
   const [ isLoggedIn, setIsLoggedIn ] = useState(false);
+
   const [ allMovies, setAllMovies ] = useState([]);
   const [ foundMovies, setFoundMovies ] = useState([]);
   const [ userMovies, setUserMovies ] = useState([]);
   const [ foundUserMovies, setFoundUserMovies ] = useState([]);
-  const [ isLoading, setIsLoading ] = useState(true);
-  const [ searchText, setSearchText ] = useState('');
 
+  const [ searchText, setSearchText ] = useState('');
   const [ isShortMovie, setIsShortMovie ] = useState(false);
   const [ isUserShortMovie, setIsUserShortMovie ] = useState(false);
 
+  const [ isLoading, setIsLoading ] = useState(true);
 
-  const { formValues: moviesFormValue, handleChange: handleMoviesChange, resetForm: resetMoviesForm } = useValidation({ search: initValidState })
-  const { formValues: userMoviesFormValue, handleChange: handleUserMoviesChange, resetForm: resetUserMoviesForm } = useValidation({ search: initValidState });
-  // Поле поиска
+  const {
+    formValues: moviesFormValue,
+    handleChange: handleMoviesChange,
+    resetForm: resetMoviesForm
+  } = useValidation({ search: INITIAL_STATE });
+
+  const {
+    formValues: userMoviesFormValue,
+    handleChange: handleUserMoviesChange,
+    resetForm: resetUserMoviesForm
+  } = useValidation({ search: INITIAL_STATE });
+
+  // movie search
+
   const [ isFirstSearch, setFirstSearch ] = useState(true);
   const { pathname } = useLocation();
 
@@ -67,8 +79,11 @@ function App() {
     }
   });
 
+
+  // auth
+
   const handleLogout = () => {
-    setIsLoggedIn(false)
+    setIsLoggedIn(false);
     setCurrentUser({ email: '', name: '' });
     setUserMovies([]);
     setAllMovies([]);
@@ -76,8 +91,8 @@ function App() {
     setFoundUserMovies([]);
     setIsShortMovie(false);
     setIsUserShortMovie(false);
-    resetMoviesForm({ searchText: initValidState });
-    resetUserMoviesForm({ searchText: initValidState });
+    resetMoviesForm({ searchText: INITIAL_STATE });
+    resetUserMoviesForm({ searchText: INITIAL_STATE });
     setFirstSearch(true);
     localStorage.clear();
     mainApi.setAuthHeader(null);
@@ -87,7 +102,6 @@ function App() {
     if (error === 401) handleLogout();
     console.log(error);
   };
-
 
   const checkToken = () => {
     mainApi.getUserInfo()
@@ -111,16 +125,16 @@ function App() {
 
   const handleLoggedInUser = () => {
     Promise.all([mainApi.getUserInfo(), mainApi.getUserMovies()])
-      .then(([userData, moviesList]) => {
-        setCurrentUser(userData);
-        setUserMovies(moviesList);
-        setFoundUserMovies(moviesList);
+      .then(([user, movies]) => {
+        setCurrentUser(user);
+        setUserMovies(movies);
+        setFoundUserMovies(movies);
 
         const lastSearch = JSON.parse(localStorage.getItem('lastSearch'));
-        const allMoviesFromStorage = JSON.parse(localStorage.getItem('movies'));
+        const storedMovies = JSON.parse(localStorage.getItem('movies'));
 
-        if (allMoviesFromStorage) {
-          setAllMovies(allMoviesFromStorage);
+        if (storedMovies) {
+          setAllMovies(storedMovies);
         } else {
           setSearchText('Нужно ввести ключевое слово');
         }
@@ -148,7 +162,7 @@ function App() {
   }
 
   const resetUserMoviesSearch = () => {
-    if (isLoggedIn && pathname !== 'savedMovies') {
+    if (isLoggedIn && pathname !== '/saved-movies') {
       resetUserMoviesForm();
       filterUserMovies();
       setIsUserShortMovie(false);
@@ -160,6 +174,7 @@ function App() {
   useEffect(handleFoundMoviesEffect, [foundMovies]);
   useEffect(resetUserMoviesSearch, [isLoggedIn, pathname]);
 
+  // movies
 
   const filterMovieList = (searchText, isShort, moviesList) => {
     const filteredByLenght = moviesList.filter((movie) => isShort ? movie.duration <= SHORT_MOVIE_LENGTH: !isShort);
@@ -169,7 +184,6 @@ function App() {
       movie.nameEN.toLowerCase().includes(searchTextLowerCase) || movie.nameRU.toLowerCase().includes(searchTextLowerCase)
     );
   };
-
 
   const getAndSortAllMovies = () => {
     setIsLoading(true);
@@ -185,7 +199,6 @@ function App() {
       .finally(() => setIsLoading(false));
   };
 
-
   const filterAllMovies = () => {
     const filteredList = filterMovieList(moviesFormValue.search.value, isShortMovie, allMovies);
 
@@ -196,12 +209,12 @@ function App() {
     }
 
     setFoundMovies(filteredList);
-  }
+  };
 
   const filterUserMovies = () => {
     const filteredMovies = filterMovieList(userMoviesFormValue.search.value, isUserShortMovie, userMovies);
     setFoundUserMovies(filteredMovies);
-  }
+  };
 
   const handleMoviesSearch = () => {
     if (!moviesFormValue.search.value) {
@@ -228,36 +241,35 @@ function App() {
     handleMoviesSearch();
   };
 
-
-
   const handleUserMoviesSearch = () => {
     filterUserMovies();
   };
 
-  useEffect(handleMoviesSearch, [allMovies]);
   useEffect(handleCheckBox, [isShortMovie]);
-
+  useEffect(handleMoviesSearch, [allMovies]);
   useEffect(handleUserMoviesSearch, [userMovies, isShortMovie]);
 
 
-  const checkIsLiked = (movie) => userMovies.some((m) => m.movieId === movie.movieId);
+  // saved-movies
 
+  const checkIsLiked = (m) => userMovies.some((movie) => movie.movieId === m.movieId);
   const getMoviesId = (movieId) => userMovies.find(movie => movie.movieId === movieId)._id;
 
-  const deleteMovie = (movie) => {
-    const id = movie._id ? movie._id : getMoviesId(movie.movieId);
-    mainApi.deleteMovie(id)
-      .then((m) => setUserMovies(state => state.filter(m => m._id !== id)))
-    .catch(errorHandler);
-  };
-
   const handleSaveMovie = (movie) => {
-    console.log(movie);
     mainApi.saveUserMovie(movie)
       .then((movie) => setUserMovies([movie, ...userMovies]))
       .catch(errorHandler);
   };
 
+  const handleDeleteMovie = (movie) => {
+    const id = movie._id ? movie._id : getMoviesId(movie.movieId);
+    console.log(movie._id)
+    console.log(getMoviesId(movie.movieId));
+    console.log(movie);
+    mainApi.deleteMovie(id)
+      .then((m) => setUserMovies(movies => movies.filter(m => m._id !== id)))
+      .catch(errorHandler);
+  };
 
   // useEffect(() => {
   //   Promise.all([moviesApi.getMovies()])
@@ -269,8 +281,6 @@ function App() {
   // useEffect(() => {
   //   getAllMovies();
   // }, [isLoggedIn])
-
-
 
   const handleLogin = (formValues) => {
     return mainApi.login(formValues)
@@ -296,7 +306,7 @@ function App() {
       })
   }
 
-  const handleEditUser = (formValues) => {
+  const handleEditProfile = (formValues) => {
     return mainApi.setUserInfo(formValues)
       .then((res) => {
         if (res) {
@@ -324,7 +334,7 @@ function App() {
                 isLoggedIn={isLoggedIn}
                 movies={allMovies}
                 onSubmit={handleMoviesSearch}
-                onDelete={deleteMovie}
+                onDelete={handleDeleteMovie}
                 onSave={handleSaveMovie}
                 foundMovies={foundMovies}
                 checkIsLiked={checkIsLiked}
@@ -347,26 +357,25 @@ function App() {
                 movies={userMovies}
                 onSubmit={handleUserMoviesSearch}
                 foundMovies={foundUserMovies}
-                onDelete={deleteMovie}
+                onDelete={handleDeleteMovie}
               />
             }
           />
 
           <Route path='/signin' element={<Login onSubmit={handleLogin} isLoggedIn={isLoggedIn} />} />
           <Route path='/signup' element={<Register onSubmit={handleRegister} isLoggedIn={isLoggedIn} />} />
+
           <Route
             path='/profile'
             element={
               <ProtectedRoute
                 element={Profile}
-                onSubmit={handleEditUser}
+                onSubmit={handleEditProfile}
                 onLogout={handleLogout}
                 isLoggedIn={isLoggedIn}
               />
             }
           />
-
-
 
           <Route path='*' element={<NotFound />} />
         </Routes>

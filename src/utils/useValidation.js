@@ -1,9 +1,9 @@
-import { useCallback, useState } from "react";
-import { isEmail } from "validator/";
+import { useCallback, useState } from 'react';
+import { isEmail } from 'validator/';
 
 
-function useValidation (initValues) {
-	const [ formValues, setFormValues ] = useState(initValues); // стейт значений
+function useValidation (values) {
+	const [ formValues, setFormValues ] = useState(values); // стейт значений
 	const handleChange = (event) => {
 		const { target: input } = event;
 		setFormValues({
@@ -12,8 +12,8 @@ function useValidation (initValues) {
 				value: input.value,
 				validationMessage: input.type === 'email' ? isEmail(input.value) ? '' : 'Не Email' : input.validationMessage,
 				isValidValue: input.type === 'email' ? isEmail(input.value) : input.checkValidity(),
-				isEmpty: input.value.length === 0,
 				isDirty: true,
+				isEmpty: input.value.length === 0,
 				isValid: function () {
 					return (this.isValidValue && this.isDirty);
 				}
@@ -21,7 +21,7 @@ function useValidation (initValues) {
 		});
 	}
 
-	const resetForm = useCallback((newValues = initValues) => setFormValues(newValues), [setFormValues]);
+	const resetForm = useCallback((newValues = values) => setFormValues(newValues), [setFormValues]);
 
 	return { formValues, handleChange, setFormValues, resetForm };
 }

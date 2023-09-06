@@ -3,15 +3,15 @@ import { Navigate } from 'react-router-dom';
 import Auth from '../Auth/Auth';
 
 import useValidation from '../../utils/useValidation';
-import initValidState from '../../utils/initValidState';
+import {INITIAL_STATE} from "../../utils/constants";
 
 
 function Register({ onSubmit, isLoggedIn }) {
 
   const { formValues, handleChange } = useValidation({
-    name: initValidState,
-    email: initValidState,
-    password: initValidState,
+    name: INITIAL_STATE,
+    email: INITIAL_STATE,
+    password: INITIAL_STATE,
   });
 
   const handleSubmit = () => {

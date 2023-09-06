@@ -1,6 +1,6 @@
 import {Link, useLocation} from 'react-router-dom';
 
-function MoviesCard(props) {
+function MoviesCard({ onDelete, onSave, ...props }) {
   const location = useLocation();
 
   const isLiked = props.checkIsLiked ? props.checkIsLiked(props.card) : true;
@@ -22,9 +22,9 @@ function MoviesCard(props) {
 
   const handleCardLike = () => {
     if (isLiked) {
-      props.onDelete(props.card);
+      onDelete(props.card);
     } else {
-      props.onSave(props.card);
+      onSave(props.card);
     }
   };
 
@@ -47,20 +47,29 @@ function MoviesCard(props) {
           <h2 className='movie__title'>{props.card.nameRU}</h2>
           <p className='movie__duration'>{formatTime(props.card.duration)}</p>
         </div>
-        {
-          location.pathname === '/movies' ? (
-            <button
-              className={cardLikeButtonClassName}
-              type='button'
-              onClick={handleCardLike}
-            ></button>
-          ) : (
-            <button
-              className='movie__like-delete'
-              type='button'
-            ></button>
-          )
-        }
+
+        <button
+          className={cardLikeButtonClassName}
+          type='button'
+          onClick={handleCardLike}
+        ></button>
+
+
+
+        {/*{*/}
+        {/*  location.pathname === '/movies' ? (*/}
+        {/*    <button*/}
+        {/*      className={cardLikeButtonClassName}*/}
+        {/*      type='button'*/}
+        {/*      onClick={handleCardLike}*/}
+        {/*    ></button>*/}
+        {/*  ) : (*/}
+        {/*    <button*/}
+        {/*      className='movie__like-delete'*/}
+        {/*      type='button'*/}
+        {/*    ></button>*/}
+        {/*  )*/}
+        {/*}*/}
       </div>
     </li>
   );

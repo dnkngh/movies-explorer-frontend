@@ -33,6 +33,15 @@ const ERROR_MESSAGES = {
   profileUpdated: 'Данные профиля обновлены',
 }
 
+const INITIAL_STATE = {
+  value: '',
+  validationMessage: '',
+  isValidValue: true,
+  isEmpty: true,
+  isDirty: false,
+  isValid: () => false,
+}
+
 export {
   MOVIES_API_BASE_URL,
   MIN_DESKTOP_WIDTH,
@@ -40,4 +49,5 @@ export {
   SHORT_MOVIE_LENGTH,
   SLICE_PARAMETERS,
   ERROR_MESSAGES,
+  INITIAL_STATE,
 };

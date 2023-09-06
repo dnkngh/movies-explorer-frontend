@@ -37,7 +37,7 @@
 
 .menu__all-movies {
   font-size: 13px;
-  font-weight: 500;
+  font-weight: 400;
   line-height: 18px;
   text-decoration: none;
   margin: 0;
@@ -112,6 +112,10 @@
   display: none;
   z-index: 51;
   cursor: pointer;
+}
+
+.menu__active-link {
+  font-weight: 500;
 }
 
 @media screen and (max-width: 768px) {
@@ -194,6 +198,8 @@
   .menu__saved-movies.active {
     border-bottom: 2px solid #000;
   }
+
+
 }
 
 @media screen and (max-width: 400px) {

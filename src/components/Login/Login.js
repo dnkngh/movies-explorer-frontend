@@ -1,12 +1,12 @@
 import Auth from '../Auth/Auth';
-import useValidation from "../../utils/useValidation";
-import initValidState from "../../utils/initValidState";
-import {Navigate} from "react-router-dom";
+import useValidation from '../../utils/useValidation';
+import { Navigate } from 'react-router-dom';
+import {INITIAL_STATE} from "../../utils/constants";
 
 function Login({ isLoggedIn, onSubmit }) {
   const { formValues, handleChange } = useValidation({
-    email: initValidState,
-    password: initValidState,
+    email: INITIAL_STATE,
+    password: INITIAL_STATE,
   });
 
   const handleSubmit = () => {
