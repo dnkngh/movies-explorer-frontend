@@ -13,11 +13,11 @@ const SLICE_PARAMETERS = {
   },
   TABLET: {
     MOVIES_AMOUNT: 8,
-    MOVIES_ON_ROW: 4,
+    MOVIES_ON_ROW: 2,
   },
   MOBILE: {
     MOVIES_AMOUNT: 5,
-    MOVIES_ON_ROW: 2,
+    MOVIES_ON_ROW: 1,
   },
 }
 
