@@ -132,8 +132,6 @@ function App() {
         setUserMovies(movies);
         setFoundUserMovies(movies);
 
-        navigate('/movies');
-
         const lastSearch = JSON.parse(localStorage.getItem('lastSearch'));
         const storedMovies = JSON.parse(localStorage.getItem('movies'));
 
@@ -221,25 +219,17 @@ function App() {
   };
 
   const handleMoviesSearch = () => {
-
-    console.log(`loggedin ${isLoggedIn}`);
-    console.log(`formvalue ${moviesFormValue.search.value}`);
-    console.log(`first search ${isFirstSearch}`);
-    console.log(`allmovies ${allMovies.length}`);
     
     if (!moviesFormValue.search.value) {
       setFoundMovies([]);
       setSearchText('Введите название');
-      console.log('ping3')
       return ;
     }
     if (isLoggedIn) {
       if (isFirstSearch || allMovies.length < 1) {
         getAndSortAllMovies();
-        console.log('ping1')
       } else {
         filterAllMovies();
-        console.log('ping2')
       }
     }
   };
@@ -301,7 +291,7 @@ function App() {
           setIsLoggedIn(true);
           localStorage.setItem('token', token);
           mainApi.setAuthHeader(token);
-          navigate('/movies')
+          navigate('/movies');
         }
       });
   };
@@ -328,6 +318,10 @@ function App() {
   }
 
   if (!isLoggedIn && isLoading) return (<Preloader/>);
+
+  const handlePreviousPage = () => {
+    navigate(-1);
+  }
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
@@ -391,7 +385,7 @@ function App() {
           <Route path='/signin' element={<Login onSubmit={handleLogin} isLoggedIn={isLoggedIn} />} />
           <Route path='/signup' element={<Register onSubmit={handleRegister} isLoggedIn={isLoggedIn} />} />
 
-          <Route path='*' element={<NotFound />} />
+          <Route path='*' element={<NotFound handlePreviousPage={handlePreviousPage} />} />
         </Routes>
         <Footer />
       </div>

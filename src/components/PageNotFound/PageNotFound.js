@@ -1,4 +1,4 @@
-function PageNotFound() {
+function PageNotFound({ handlePreviousPage }) {
 
   return (
     <main className='page-not-found'>
@@ -11,6 +11,7 @@ function PageNotFound() {
       <button
        className='page-not-found__button hover-link'
        type='button'
+       onClick={handlePreviousPage}
       >
         Назад
       </button>

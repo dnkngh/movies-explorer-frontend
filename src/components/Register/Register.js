@@ -47,7 +47,7 @@ function Register({ onSubmit, isLoggedIn }) {
           minLength='2'
           maxLength='30'
           required
-          placeholder='Введите имя'
+          placeholder=''
           onChange={handleChange}
           value={formValues.name.value}
         />

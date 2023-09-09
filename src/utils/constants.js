@@ -2,9 +2,9 @@ const MOVIES_API_BASE_URL = 'https://api.nomoreparties.co';
 
 const SHORT_MOVIE_LENGTH = 40;
 
-const MIN_DESKTOP_WIDTH = 900;
+const MIN_DESKTOP_WIDTH = 1280;
 
-const MIN_TABLET_WIDTH = 600;
+const MIN_TABLET_WIDTH = 1009;
 
 const SLICE_PARAMETERS = {
   DESKTOP: {
@@ -17,7 +17,7 @@ const SLICE_PARAMETERS = {
   },
   MOBILE: {
     MOVIES_AMOUNT: 5,
-    MOVIES_ON_ROW: 1,
+    MOVIES_ON_ROW: 2,
   },
 }
 

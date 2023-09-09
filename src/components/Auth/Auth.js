@@ -8,14 +8,18 @@ import { ERROR_MESSAGES } from '../../utils/constants';
 
 function Auth({ title, subtitle, subLink, subLinkName, onSubmit, buttonText, toggleSubmit, ...props}) {
   const [ serverErrorMessage, setServerErrorMessage ] = useState('');
+  const [ isFetching, setIsFetching ] = useState(false)
 
   const handleSubmit = (evt) => {
+    setIsFetching(true);
     evt.preventDefault();
     setServerErrorMessage('');
 
     onSubmit()
       .then(() => setServerErrorMessage(''))
       .catch((error) => {
+        console.log(error)
+
         if (error === 400) {
           return setServerErrorMessage(ERROR_MESSAGES.validation);
         }
@@ -28,7 +32,10 @@ function Auth({ title, subtitle, subLink, subLinkName, onSubmit, buttonText, tog
         if (error === 500) {
           return setServerErrorMessage(ERROR_MESSAGES.internalError);
         }
-      });
+      })
+      .finally(
+        () => setIsFetching(false)
+      );
   };
 
   return (
@@ -42,7 +49,7 @@ function Auth({ title, subtitle, subLink, subLinkName, onSubmit, buttonText, tog
         <button
           className='auth_button auth__button_type_submit hover-button'
           type='submit'
-          disabled={(!toggleSubmit)}
+          disabled={(!toggleSubmit || isFetching)}
         >
           {buttonText}
         </button>
