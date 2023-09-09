@@ -72,6 +72,11 @@
   cursor: pointer;
 }
 
+.auth__button_type_submit:disabled {
+  background: #f8f8f8;
+  color: #c2c2c2;
+}
+
 
 .auth__button_type_link {
   color: #fff;
