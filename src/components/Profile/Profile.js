@@ -13,15 +13,18 @@ function Profile({ onSubmit, onLogout }) {
     email: { ...INITIAL_STATE, value: currentUser.email },
   });
 
+  const [ isFetching, setIsFetching ] = useState(false);
+  const [ isSuccessful, setIsSuccessful] = useState(true);
   const isValidInput = formValues.name.isValid() && formValues.email.isValid();
 
   const [ serverErrorMessage, setServerErrorMessage ] = useState('');
   const [isInEditMode, setIsInEditMode] = useState(false);
   const isNotEdited = formValues.name.value === currentUser.name && formValues.email.value === currentUser.email;
-  const toggleSubmitButton = isNotEdited || !isValidInput;
+  const toggleSubmitButton = isNotEdited || !isValidInput || isFetching;
 
 
   const handleSubmit = (evt) => {
+    setIsFetching(true);
     setServerErrorMessage('');
     evt.preventDefault();
 
@@ -30,9 +33,12 @@ function Profile({ onSubmit, onLogout }) {
       email: formValues.email.value,
     })
       .then(() => {
+        setIsSuccessful(true);
         setServerErrorMessage(ERROR_MESSAGES.profileUpdated);
+        setIsInEditMode(false);
       })
       .catch((error) => {
+        setIsSuccessful(false);
         if (error === 400) {
           return setServerErrorMessage(ERROR_MESSAGES.incorrectData);
         }
@@ -42,10 +48,9 @@ function Profile({ onSubmit, onLogout }) {
         if (error === 500) {
           return setServerErrorMessage(ERROR_MESSAGES.internalError);
         }
+        setServerErrorMessage(ERROR_MESSAGES.internalError);
       })
-      .finally(
-        setIsInEditMode(false)
-      )
+      .finally(() => setIsFetching(false))
   };
 
   const handleEdit = () => {
@@ -74,7 +79,7 @@ function Profile({ onSubmit, onLogout }) {
             minLength='2'
             maxLength='30'
             required
-            value={formValues.name.value || ''}
+            value={formValues.name.value}
             onChange={handleChange}
             disabled={!isInEditMode}
           />
@@ -90,13 +95,13 @@ function Profile({ onSubmit, onLogout }) {
             minLength='5'
             maxLength='30'
             required
-            value={formValues.email.value || ''}
+            value={formValues.email.value}
             onChange={handleChange}
             disabled={!isInEditMode}
           />
+          <span className='profile__input-error'>{formValues.email.validationMessage}</span>
         </label>
-        <span className='profile__input-error'>{formValues.email.validationMessage}</span>
-
+        <span className={`profile__span${isSuccessful ? '' : ' profile__span_error'}`}>{serverErrorMessage}</span>
         {isInEditMode &&
           <>
             <button

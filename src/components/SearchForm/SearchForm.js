@@ -17,6 +17,7 @@ function SearchForm({ searchValue, handleChange, handleCheck, isShortMovie, onSu
           required
           value={searchValue.search.value}
           onChange={handleChange}
+          autoComplete='no'
         />
         <button
           className='search-form__button hover-button'

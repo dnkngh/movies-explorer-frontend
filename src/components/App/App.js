@@ -19,6 +19,7 @@ import moviesApi from '../../utils/MoviesApi';
 import { MOVIES_API_BASE_URL, SHORT_MOVIE_LENGTH, INITIAL_STATE } from '../../utils/constants';
 import useValidation from '../../utils/useValidation';
 import ProtectedRoute from '../../utils/ProtectedRoute';
+import Preloader from "../Preloader/Preloader";
 
 
 function App() {
@@ -32,11 +33,12 @@ function App() {
   const [ userMovies, setUserMovies ] = useState([]);
   const [ foundUserMovies, setFoundUserMovies ] = useState([]);
 
+  const [ isLoading, setIsLoading ] = useState(true);
+
   const [ searchText, setSearchText ] = useState('');
   const [ isShortMovie, setIsShortMovie ] = useState(false);
   const [ isUserShortMovie, setIsUserShortMovie ] = useState(false);
 
-  const [ isLoading, setIsLoading ] = useState(true);
 
   const {
     formValues: moviesFormValue,
@@ -91,8 +93,8 @@ function App() {
     setFoundUserMovies([]);
     setIsShortMovie(false);
     setIsUserShortMovie(false);
-    resetMoviesForm({ searchText: INITIAL_STATE });
-    resetUserMoviesForm({ searchText: INITIAL_STATE });
+    resetMoviesForm({ search: INITIAL_STATE });
+    resetUserMoviesForm({ search: INITIAL_STATE });
     setFirstSearch(true);
     localStorage.clear();
     mainApi.setAuthHeader(null);
@@ -130,6 +132,8 @@ function App() {
         setUserMovies(movies);
         setFoundUserMovies(movies);
 
+        navigate('/movies');
+
         const lastSearch = JSON.parse(localStorage.getItem('lastSearch'));
         const storedMovies = JSON.parse(localStorage.getItem('movies'));
 
@@ -148,7 +152,7 @@ function App() {
   };
 
   const loggedChangeHandler = () => {
-    if (!isLoggedIn) {
+    if (isLoggedIn) {
       handleLoggedInUser();
     }
   };
@@ -190,11 +194,11 @@ function App() {
     moviesApi.getMovies()
       .then((res) => {
         const movieListFormatted = formatMovies(res);
-        setFirstSearch(false);
 
         setAllMovies(movieListFormatted);
-        console.log('getAndSortAllMovies done')
+        setFirstSearch(false);
         localStorage.setItem('movies', JSON.stringify(movieListFormatted));
+        console.log('getAndSortAllMovies done')
       })
       .finally(() => setIsLoading(false));
   };
@@ -217,17 +221,25 @@ function App() {
   };
 
   const handleMoviesSearch = () => {
+
+    console.log(`loggedin ${isLoggedIn}`);
+    console.log(`formvalue ${moviesFormValue.search.value}`);
+    console.log(`first search ${isFirstSearch}`);
+    console.log(`allmovies ${allMovies.length}`);
+    
     if (!moviesFormValue.search.value) {
       setFoundMovies([]);
       setSearchText('Введите название');
-
+      console.log('ping3')
       return ;
     }
     if (isLoggedIn) {
       if (isFirstSearch || allMovies.length < 1) {
         getAndSortAllMovies();
+        console.log('ping1')
       } else {
         filterAllMovies();
+        console.log('ping2')
       }
     }
   };
@@ -245,8 +257,8 @@ function App() {
     filterUserMovies();
   };
 
-  useEffect(handleCheckBox, [isShortMovie]);
   useEffect(handleMoviesSearch, [allMovies]);
+  useEffect(handleCheckBox, [isShortMovie]);
   useEffect(handleUserMoviesSearch, [userMovies, isShortMovie]);
 
 
@@ -315,6 +327,8 @@ function App() {
       });
   }
 
+  if (!isLoggedIn && isLoading) return (<Preloader/>);
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className='app'>
@@ -337,9 +351,9 @@ function App() {
                 onDelete={handleDeleteMovie}
                 onSave={handleSaveMovie}
                 foundMovies={foundMovies}
+                isLoading={isLoading}
                 checkIsLiked={checkIsLiked}
                 searchMessage={searchText}
-                isLoading={isLoading}
               />
             }
           />
@@ -362,9 +376,6 @@ function App() {
             }
           />
 
-          <Route path='/signin' element={<Login onSubmit={handleLogin} isLoggedIn={isLoggedIn} />} />
-          <Route path='/signup' element={<Register onSubmit={handleRegister} isLoggedIn={isLoggedIn} />} />
-
           <Route
             path='/profile'
             element={
@@ -376,6 +387,9 @@ function App() {
               />
             }
           />
+
+          <Route path='/signin' element={<Login onSubmit={handleLogin} isLoggedIn={isLoggedIn} />} />
+          <Route path='/signup' element={<Register onSubmit={handleRegister} isLoggedIn={isLoggedIn} />} />
 
           <Route path='*' element={<NotFound />} />
         </Routes>
