@@ -2,6 +2,12 @@ const MOVIES_API_BASE_URL = 'https://api.nomoreparties.co';
 
 const SHORT_MOVIE_LENGTH = 40;
 
+// moviesList cards on row:
+// 1280px+ : 4
+// 1010px - 1279px : 3
+// 630px - 1009px : 2
+// 320px - 629px : 1
+
 const SLICE_PARAMETERS = {
   FOUR_ON_ROW: {
     MIN_WIDTH: 1280,
