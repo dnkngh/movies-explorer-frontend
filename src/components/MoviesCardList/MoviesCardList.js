@@ -8,7 +8,6 @@ import Preloader from '../Preloader/Preloader';
 function MoviesCardList({ foundMovies, savedMovies, checkIsLiked, onSave, onDelete, isLoading, searchMessage, ...props }) {
   const { pathname } = useLocation();
 
-
   return (
     <section className='movies-list'>
       {

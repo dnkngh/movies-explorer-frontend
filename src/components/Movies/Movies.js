@@ -7,7 +7,7 @@ import SearchForm from '../SearchForm/SearchForm';
 import { MIN_DESKTOP_WIDTH, MIN_TABLET_WIDTH, SLICE_PARAMETERS } from '../../utils/constants';
 
 
-function Movies({ movies, foundMovies, onSave, checkIsLiked, onDelete, searchMessage, ...props }) {
+function Movies({ movies, foundMovies, onSave, checkIsLiked, onDelete, searchMessage, isLoading, ...props }) {
 
 
   const [ sliceAmount, setSliceAmount ] = useState(0);
@@ -66,6 +66,7 @@ function Movies({ movies, foundMovies, onSave, checkIsLiked, onDelete, searchMes
         onExpand={handleExpandList}
         isSliced={isSliced}
         searchMessage={searchMessage}
+        isLoading={isLoading}
       />
     </main>
   );
