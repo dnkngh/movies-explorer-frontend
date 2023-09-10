@@ -18,18 +18,16 @@ function Auth({ title, subtitle, subLink, subLinkName, onSubmit, buttonText, tog
     onSubmit()
       .then(() => setServerErrorMessage(''))
       .catch((error) => {
-        console.log(error)
-
-        if (error === 400) {
+        if (error === '400') {
           return setServerErrorMessage(ERROR_MESSAGES.validation);
         }
-        if (error === 401) {
+        if (error === '401') {
           return setServerErrorMessage(ERROR_MESSAGES.incorrectAuthData);
         }
-        if (error === 409) {
+        if (error === '409') {
           return setServerErrorMessage(ERROR_MESSAGES.duplicate);
         }
-        if (error === 500) {
+        if (error === '500') {
           return setServerErrorMessage(ERROR_MESSAGES.internalError);
         }
       })

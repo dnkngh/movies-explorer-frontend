@@ -24,24 +24,6 @@ const SLICE_PARAMETERS = {
   },
 };
 
-//
-// const SLICE_PARAMETERS = {
-//   DESKTOP: {
-//     MOVIES_AMOUNT: 12,
-//     MOVIES_ON_ROW: 4,
-//   },
-//   TABLET: {
-//     MOVIES_AMOUNT: 8,
-//     MOVIES_ON_ROW: 2,
-//   },
-//   MOBILE: {
-//     MOVIES_AMOUNT: 5,
-//     MOVIES_ON_ROW: 2,
-//   },
-// };
-
-
-
 const ERROR_MESSAGES = {
   validation: 'Некорректный запрос',
   incorrectData: 'Вы ввели неправильный логин или пароль.',

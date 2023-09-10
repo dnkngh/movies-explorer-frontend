@@ -102,7 +102,8 @@
 
 .auth__submit-error {
   display: inline-block;
-
+  font-size: 14px;
+  color: #ee3456;
 }
 
 @media screen and (max-width: 768px) {

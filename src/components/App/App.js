@@ -196,7 +196,6 @@ function App() {
         setAllMovies(movieListFormatted);
         setFirstSearch(false);
         localStorage.setItem('movies', JSON.stringify(movieListFormatted));
-        console.log('getAndSortAllMovies done')
       })
       .finally(() => setIsLoading(false));
   };
@@ -265,24 +264,11 @@ function App() {
 
   const handleDeleteMovie = (movie) => {
     const id = movie._id ? movie._id : getMoviesId(movie.movieId);
-    console.log(movie._id)
-    console.log(getMoviesId(movie.movieId));
-    console.log(movie);
+
     mainApi.deleteMovie(id)
       .then((m) => setUserMovies(movies => movies.filter(m => m._id !== id)))
       .catch(errorHandler);
   };
-
-  // useEffect(() => {
-  //   Promise.all([moviesApi.getMovies()])
-  //     .then(([movs]) => {
-  //     setAllMovies(formatMovies(movs));
-  //   })
-  // }, [isLoggedIn])
-
-  // useEffect(() => {
-  //   getAllMovies();
-  // }, [isLoggedIn])
 
   const handleLogin = (formValues) => {
     return mainApi.login(formValues)
