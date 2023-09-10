@@ -4,7 +4,7 @@ import useWidth from '../../utils/useWidth';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import SearchForm from '../SearchForm/SearchForm';
 
-import { MIN_DESKTOP_WIDTH, MIN_TABLET_WIDTH, SLICE_PARAMETERS } from '../../utils/constants';
+import { SLICE_PARAMETERS } from '../../utils/constants';
 
 
 function Movies({ movies, foundMovies, onSave, checkIsLiked, onDelete, searchMessage, isLoading, ...props }) {
@@ -13,23 +13,26 @@ function Movies({ movies, foundMovies, onSave, checkIsLiked, onDelete, searchMes
   const [ sliceAmount, setSliceAmount ] = useState(0);
   const [ slicedList, setSlicedList ] = useState([]);
 
-  const [ moviesOnRow, setMoviesOnRow ] = useState(3);
-  const [ moviesAmount, setMoviesAmount ] = useState(6);
+  const [ moviesOnRow, setMoviesOnRow ] = useState(4);
+  const [ moviesAmount, setMoviesAmount ] = useState(16);
 
   const [ isSliced, setIsSliced ] = useState(true);
 
   const width = useWidth();
 
   function handleWidth() {
-    if (width > MIN_DESKTOP_WIDTH) {
-      setMoviesAmount(SLICE_PARAMETERS.DESKTOP.MOVIES_AMOUNT);
-      setMoviesOnRow(SLICE_PARAMETERS.DESKTOP.MOVIES_ON_ROW);
-    } else if (width > MIN_TABLET_WIDTH) {
-      setMoviesAmount(SLICE_PARAMETERS.TABLET.MOVIES_AMOUNT);
-      setMoviesOnRow(SLICE_PARAMETERS.TABLET.MOVIES_ON_ROW);
+    if (width >= SLICE_PARAMETERS.FOUR_ON_ROW.MIN_WIDTH) {
+      setMoviesAmount(SLICE_PARAMETERS.FOUR_ON_ROW.MOVIES_AMOUNT);
+      setMoviesOnRow(SLICE_PARAMETERS.FOUR_ON_ROW.MOVIES_ON_ROW);
+    } else if (width >= SLICE_PARAMETERS.THREE_ON_ROW.MIN_WIDTH) {
+      setMoviesAmount(SLICE_PARAMETERS.THREE_ON_ROW.MOVIES_AMOUNT);
+      setMoviesOnRow(SLICE_PARAMETERS.THREE_ON_ROW.MOVIES_ON_ROW);
+    } else if (width >= SLICE_PARAMETERS.TWO_ON_ROW.MIN_WIDTH) {
+      setMoviesAmount(SLICE_PARAMETERS.TWO_ON_ROW.MOVIES_AMOUNT);
+      setMoviesOnRow(SLICE_PARAMETERS.TWO_ON_ROW.MOVIES_ON_ROW);
     } else {
-      setMoviesAmount(SLICE_PARAMETERS.MOBILE.MOVIES_AMOUNT);
-      setMoviesOnRow(SLICE_PARAMETERS.MOBILE.MOVIES_ON_ROW);
+      setMoviesAmount(SLICE_PARAMETERS.ONE_ON_ROW.MOVIES_AMOUNT);
+      setMoviesOnRow(SLICE_PARAMETERS.ONE_ON_ROW.MOVIES_ON_ROW);
     }
   }
 

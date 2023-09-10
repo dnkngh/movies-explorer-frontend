@@ -2,24 +2,45 @@ const MOVIES_API_BASE_URL = 'https://api.nomoreparties.co';
 
 const SHORT_MOVIE_LENGTH = 40;
 
-const MIN_DESKTOP_WIDTH = 1280;
-
-const MIN_TABLET_WIDTH = 1009;
-
 const SLICE_PARAMETERS = {
-  DESKTOP: {
+  FOUR_ON_ROW: {
+    MIN_WIDTH: 1280,
     MOVIES_AMOUNT: 16,
     MOVIES_ON_ROW: 4,
   },
-  TABLET: {
+  THREE_ON_ROW: {
+    MIN_WIDTH: 1010,
+    MOVIES_AMOUNT: 12,
+    MOVIES_ON_ROW: 3,
+  },
+  TWO_ON_ROW: {
+    MIN_WIDTH: 630,
     MOVIES_AMOUNT: 8,
     MOVIES_ON_ROW: 2,
   },
-  MOBILE: {
+  ONE_ON_ROW: {
     MOVIES_AMOUNT: 5,
-    MOVIES_ON_ROW: 2,
+    MOVIES_ON_ROW: 2
   },
-}
+};
+
+//
+// const SLICE_PARAMETERS = {
+//   DESKTOP: {
+//     MOVIES_AMOUNT: 12,
+//     MOVIES_ON_ROW: 4,
+//   },
+//   TABLET: {
+//     MOVIES_AMOUNT: 8,
+//     MOVIES_ON_ROW: 2,
+//   },
+//   MOBILE: {
+//     MOVIES_AMOUNT: 5,
+//     MOVIES_ON_ROW: 2,
+//   },
+// };
+
+
 
 const ERROR_MESSAGES = {
   validation: 'Некорректный запрос',
@@ -44,8 +65,6 @@ const INITIAL_STATE = {
 
 export {
   MOVIES_API_BASE_URL,
-  MIN_DESKTOP_WIDTH,
-  MIN_TABLET_WIDTH,
   SHORT_MOVIE_LENGTH,
   SLICE_PARAMETERS,
   ERROR_MESSAGES,
