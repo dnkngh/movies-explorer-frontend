@@ -1,56 +1,33 @@
-import {Route, Routes} from 'react-router-dom';
+import { Route, Routes, useLocation } from 'react-router-dom';
 
 import Logo from '../Logo/Logo';
 import GlobalNavigation from '../GlobalNavigation/GlobalNavigation';
 import Menu from '../Menu/Menu';
 
 
-function Header(props) {
-  return (
-      <Routes>
-        <Route
-          exact
-          path='/'
-          element={
-            <header className='header header_type_main'>
-              <Logo />
-              <GlobalNavigation />
-            </header>
-          }
-        >
-        </Route>
-        <Route
-          exact
-          path='/movies'
-          element={
-            <header className='header'>
-              <Logo />
-              <Menu />
-            </header>
-          }
-        ></Route>
-        <Route
-          exact
-          path='/saved-movies'
-          element={
-            <header className='header'>
-              <Logo />
-              <Menu />
-            </header>
-          }
-        ></Route>
-        <Route
-          exact
-          path='/profile'
-          element={
-            <header className='header'>
-              <Logo />
-              <Menu />
-            </header>
-          }
-        ></Route>
-      </Routes>
-  )
+function Header({ isLoggedIn }) {
+  const { pathname } = useLocation();
+
+  if (isLoggedIn) {
+    return (
+      <header className='header'>
+        <Logo/>
+        <Menu/>
+      </header>
+    )
+  } else {
+    if (pathname === '/') {
+      return (
+        <header className='header header_type_main'>
+          <Logo/>
+          <GlobalNavigation/>
+        </header>
+      )
+    }
+    return (
+      <></>
+    )
+  }
 }
 
 export default Header;

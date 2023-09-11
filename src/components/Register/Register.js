@@ -1,28 +1,88 @@
+import { Navigate } from 'react-router-dom';
+
 import Auth from '../Auth/Auth';
 
-function Register() {
+import useValidation from '../../utils/useValidation';
+import {INITIAL_STATE} from "../../utils/constants";
+
+
+function Register({ onSubmit, isLoggedIn }) {
+
+  const { formValues, handleChange } = useValidation({
+    name: INITIAL_STATE,
+    email: INITIAL_STATE,
+    password: INITIAL_STATE,
+  });
+
+  const handleSubmit = () => {
+    return onSubmit({
+      name: formValues.name.value,
+      email: formValues.email.value,
+      password: formValues.password.value,
+    });
+  };
+
+  if (isLoggedIn) {
+    return ( <Navigate to={'/'} />);
+  }
+
   return (
     <Auth
       title='Добро пожаловать!'
       link='/signin'
-      linkText='Зарегистрироваться'
+      buttonText='Зарегистрироваться'
       subtitle='Уже зарегистрированы?'
       subLink='/signin'
       subLinkName='Войти'
+      toggleSubmit={(formValues.name.isValid() && formValues.email.isValid() && formValues.password.isValid())}
+      onSubmit={handleSubmit}
     >
       <label className='auth__label'>
         Имя
         <input
-          className='auth__input'
+          className={`auth__input ${formValues.email.isValid() ? 'auth__input_valid' : 'auth__input_invalid'}`}
           id='name'
           type='name'
           name='name'
           minLength='2'
           maxLength='30'
           required
-          placeholder='Виталий'
+          placeholder=''
+          onChange={handleChange}
+          value={formValues.name.value}
         />
-        {/*<span className='auth__input-error'>asdf</span>*/}
+        <span className='auth__input-error'>{formValues.name.validationMessage}</span>
+      </label>
+      <label className='auth__label'>
+        E-mail
+        <input
+          className='auth__input'
+          id='email'
+          type='email'
+          name='email'
+          minLength='5'
+          maxLength='30'
+          required
+          onChange={handleChange}
+          value={formValues.email.value}
+        />
+        <span className='auth__input-error'>{formValues.email.validationMessage}</span>
+      </label>
+      <label className='auth__label'>
+        Пароль
+        <input
+          className='auth__input'
+          id='password'
+          type='password'
+          name='password'
+          minLength='4'
+          maxLength='30'
+          required
+          onChange={handleChange}
+          value={formValues.password.value}
+          autoComplete='on'
+        />
+        <span className='auth__input-error'>{formValues.password.validationMessage}</span>
       </label>
     </Auth>
   );

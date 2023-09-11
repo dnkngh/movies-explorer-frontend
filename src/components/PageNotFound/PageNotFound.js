@@ -1,7 +1,4 @@
-import { useNavigate } from 'react-router-dom';
-
-function PageNotFound() {
-  const navigate = useNavigate();
+function PageNotFound({ handlePreviousPage }) {
 
   return (
     <main className='page-not-found'>
@@ -14,7 +11,7 @@ function PageNotFound() {
       <button
        className='page-not-found__button hover-link'
        type='button'
-       onClick={() => navigate(-1)}
+       onClick={handlePreviousPage}
       >
         Назад
       </button>

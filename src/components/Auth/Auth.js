@@ -1,51 +1,61 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import Logo from '../Logo/Logo';
 
+import { ERROR_MESSAGES } from '../../utils/constants';
 
-function Auth({ title, link, linkText, subtitle, subLink, subLinkName, ...props}) {
+
+function Auth({ title, subtitle, subLink, subLinkName, onSubmit, buttonText, toggleSubmit, ...props}) {
+  const [ serverErrorMessage, setServerErrorMessage ] = useState('');
+  const [ isFetching, setIsFetching ] = useState(false)
+
+  const handleSubmit = (evt) => {
+    setIsFetching(true);
+    evt.preventDefault();
+    setServerErrorMessage('');
+
+    onSubmit()
+      .then(() => setServerErrorMessage(''))
+      .catch((error) => {
+        if (error === '400') {
+          return setServerErrorMessage(ERROR_MESSAGES.validation);
+        }
+        if (error === '401') {
+          return setServerErrorMessage(ERROR_MESSAGES.incorrectAuthData);
+        }
+        if (error === '409') {
+          return setServerErrorMessage(ERROR_MESSAGES.duplicate);
+        }
+        if (error === '500') {
+          return setServerErrorMessage(ERROR_MESSAGES.internalError);
+        }
+      })
+      .finally(
+        () => setIsFetching(false)
+      );
+  };
+
   return (
     <main className='auth'>
       <Logo />
       <h1 className='auth__title'>{title}</h1>
-      <form className='auth__form'>
+      <form className='auth__form' noValidate onSubmit={handleSubmit}>
         <>{props.children}</>
-        <label className='auth__label'>
-          E-mail
-          <input
-            className='auth__input'
-            id='email'
-            type='email'
-            name='email'
-            minLength='5'
-            maxLength='30'
-            required
-            placeholder='pochta@yandex.ru|'
-          />
-        </label>
-        <label className='auth__label'>
-          Пароль
-          <input
-            className='auth__input'
-            id='password'
-            type='password'
-            name='password'
-            minLength='1'
-            required
-            placeholder='Пароль'
-          />
-          <span className='auth__input-error'>Что-то пошло не так...</span>
-        </label>
+        <span className='auth__submit-error'>{serverErrorMessage}</span>
+
+        <button
+          className='auth_button auth__button_type_submit hover-button'
+          type='submit'
+          disabled={(!toggleSubmit || isFetching)}
+        >
+          {buttonText}
+        </button>
+        <p className='auth__text'>
+          {subtitle}
+          <Link className='auth__link hover-link' to={subLink}>{subLinkName}</Link>
+        </p>
       </form>
-
-      <button className='auth_button auth__button_type_submit hover-button' type='submit'>
-        <Link className='auth_button auth__button_type_link' to={link}>{linkText}</Link>
-      </button>
-
-      <p className='auth__text'>
-        {subtitle}
-        <Link className='auth__link hover-link' to={subLink}>{subLinkName}</Link>
-      </p>
     </main>
   );
 }

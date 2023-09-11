@@ -1,23 +1,28 @@
-import React, { useState } from 'react';
+function SearchForm({ searchValue, handleChange, handleCheck, isShortMovie, onSubmit }) {
 
-function SearchForm() {
-  const [checked, setChecked] = useState(false);
-
-  function hangleClick() {
-    setChecked(!checked);
-  }
+  const handleSubmit = (evt) => {
+    evt.preventDefault();
+    onSubmit(searchValue.search.value, isShortMovie);
+  };
 
   return (
     <section className='search-form'>
-      <form className='search-form__container'>
+      <form className='search-form__container' noValidate onSubmit={handleSubmit}>
         <div className='search-form__icon'></div>
         <input
           className='search-form__input'
           type='text'
+          name='search'
           placeholder='Фильм'
           required
+          value={searchValue.search.value}
+          onChange={handleChange}
+          autoComplete='no'
         />
-        <button className='search-form__button hover-button'></button>
+        <button
+          className='search-form__button hover-button'
+          type='submit'
+        ></button>
 
         <span className='search-form__separator'></span>
 
@@ -25,8 +30,8 @@ function SearchForm() {
           <input
             className='search-form__checkbox'
             type='checkbox'
-            checked={checked}
-            onChange={hangleClick}
+            checked={isShortMovie}
+            onChange={handleCheck}
           />
           <span
             className='search-form__checkbox-visible'

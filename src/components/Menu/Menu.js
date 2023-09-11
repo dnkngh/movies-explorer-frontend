@@ -29,14 +29,14 @@ function Menu() {
 
         <div className='menu__movies'>
           <NavLink
-            className='menu__all-movies hover-link'
+            className={({isActive}) => 'menu__all-movies hover-link' + (isActive ? ' menu__active-link' : '')}
             to='/movies'
             onClick={handleClick}
           >
             Фильмы
           </NavLink>
           <NavLink
-            className='menu__saved-movies hover-link'
+            className={({isActive}) => 'menu__saved-movies hover-link' + (isActive ? ' menu__active-link' : '')}
             to='/saved-movies'
             onClick={handleClick}
           >

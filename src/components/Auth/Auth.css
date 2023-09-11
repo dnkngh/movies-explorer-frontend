@@ -72,6 +72,11 @@
   cursor: pointer;
 }
 
+.auth__button_type_submit:disabled {
+  background: #f8f8f8;
+  color: #c2c2c2;
+}
+
 
 .auth__button_type_link {
   color: #fff;
@@ -93,6 +98,12 @@
   text-decoration: none;
   margin: 0 0 0 6px;
   padding: 0;
+}
+
+.auth__submit-error {
+  display: inline-block;
+  font-size: 14px;
+  color: #ee3456;
 }
 
 @media screen and (max-width: 768px) {
